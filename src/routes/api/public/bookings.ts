@@ -22,6 +22,19 @@ const FROM_DOMAIN = "tourism.interviewtracker.org";
 
 type BookingEmailData = z.infer<typeof BookingSchema> & { id: string };
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>'"]/g, (char) => {
+    const entities: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    };
+    return entities[char];
+  });
+}
+
 function renderAdminBookingEmail(booking: BookingEmailData) {
   const subject = `新预订：${booking.package} — ${booking.name}`;
   const rows = [
@@ -40,7 +53,7 @@ function renderAdminBookingEmail(booking: BookingEmailData) {
   const htmlRows = rows
     .map(
       ([label, value]) =>
-        `<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;color:#666;width:120px;">${label}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;color:#111;">${value}</td></tr>`,
+        `<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;color:#666;width:120px;">${escapeHtml(label)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;color:#111;">${escapeHtml(value)}</td></tr>`,
     )
     .join("");
 
