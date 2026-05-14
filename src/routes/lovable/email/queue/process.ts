@@ -37,9 +37,9 @@ function getRetryAfterSeconds(error: unknown): number {
 
 // Move a message to the dead letter queue and log the reason.
 async function moveToDlq(
-  supabase: any,
+  supabase: ReturnType<typeof createClient>,
   queue: string,
-  msg: { msg_id: number; message: Record<string, any> },
+  msg: { msg_id: number; message: Record<string, unknown> },
   reason: string
 ): Promise<void> {
   const payload = msg.message
@@ -49,13 +49,13 @@ async function moveToDlq(
     recipient_email: payload.to,
     status: 'dlq',
     error_message: reason,
-  } as any)
+  })
   const { error } = await supabase.rpc('move_to_dlq', {
     source_queue: queue,
     dlq_name: `${queue}_dlq`,
     message_id: msg.msg_id,
     payload,
-  } as any)
+  })
   if (error) {
     console.error('Failed to move message to DLQ', { queue, msg_id: msg.msg_id, reason, error })
   }
@@ -89,7 +89,7 @@ export const Route = createFileRoute("/lovable/email/queue/process")({
           return Response.json({ error: 'Forbidden' }, { status: 403 })
         }
 
-        const supabase = createClient<any, any, any>(supabaseUrl, supabaseServiceKey)
+        const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
         // 1. Check rate-limit cooldown and read queue config
         const { data: state } = await supabase
