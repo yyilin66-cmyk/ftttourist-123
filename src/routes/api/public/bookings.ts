@@ -73,7 +73,7 @@ async function enqueueAdminNotification(booking: BookingEmailData) {
     .from("email_unsubscribe_tokens")
     .upsert(
       { email: ADMIN_EMAIL, token: unsubscribeToken },
-      { onConflict: "email", ignoreDuplicates: true },
+      { onConflict: "email" },
     )
     .select("token")
     .single();
