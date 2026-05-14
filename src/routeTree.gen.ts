@@ -14,6 +14,8 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as ApiPublicBookingsRouteImport } from './routes/api/public/bookings'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,12 +43,24 @@ const LovableEmailQueueProcessRoute =
     path: '/lovable/email/queue/process',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
+  id: '/lovable/email/auth/preview',
+  path: '/lovable/email/auth/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
   '/api/public/bookings': typeof ApiPublicBookingsRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
 export interface FileRoutesByTo {
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
   '/api/public/bookings': typeof ApiPublicBookingsRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
 export interface FileRoutesById {
@@ -62,6 +78,8 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
   '/api/public/bookings': typeof ApiPublicBookingsRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
 export interface FileRouteTypes {
@@ -71,6 +89,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/'
     | '/api/public/bookings'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -78,6 +98,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin'
     | '/api/public/bookings'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
   id:
     | '__root__'
@@ -85,6 +107,8 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/'
     | '/api/public/bookings'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
 }
@@ -93,6 +117,8 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ApiPublicBookingsRoute: typeof ApiPublicBookingsRoute
+  LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
+  LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
 
@@ -133,6 +159,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/auth/webhook': {
+      id: '/lovable/email/auth/webhook'
+      path: '/lovable/email/auth/webhook'
+      fullPath: '/lovable/email/auth/webhook'
+      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/preview': {
+      id: '/lovable/email/auth/preview'
+      path: '/lovable/email/auth/preview'
+      fullPath: '/lovable/email/auth/preview'
+      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -141,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
   ApiPublicBookingsRoute: ApiPublicBookingsRoute,
+  LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
+  LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
