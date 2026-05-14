@@ -1,12 +1,16 @@
 import { sendLovableEmail } from '@lovable.dev/email-js'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { createFileRoute } from '@tanstack/react-router'
+import type { Database } from '@/integrations/supabase/types'
 
 const MAX_RETRIES = 5
 const DEFAULT_BATCH_SIZE = 10
 const DEFAULT_SEND_DELAY_MS = 200
 const DEFAULT_AUTH_TTL_MINUTES = 15
 const DEFAULT_TRANSACTIONAL_TTL_MINUTES = 60
+
+type EmailPayload = Record<string, any>
+type QueueMessage = { msg_id: number; read_ct?: number; enqueued_at?: string; message: EmailPayload }
 
 // Check if an error is a rate-limit (429) response.
 // Uses EmailAPIError.status when available (email-js >=0.x with structured errors),
@@ -37,9 +41,9 @@ function getRetryAfterSeconds(error: unknown): number {
 
 // Move a message to the dead letter queue and log the reason.
 async function moveToDlq(
-  supabase: ReturnType<typeof createClient>,
+  supabase: SupabaseClient<Database>,
   queue: string,
-  msg: { msg_id: number; message: Record<string, unknown> },
+  msg: QueueMessage,
   reason: string
 ): Promise<void> {
   const payload = msg.message
