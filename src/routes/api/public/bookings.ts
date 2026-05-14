@@ -66,7 +66,17 @@ function renderAdminBookingEmail(booking: BookingEmailData) {
 
 async function enqueueAdminNotification(booking: BookingEmailData) {
   const messageId = crypto.randomUUID();
+  const unsubscribeToken = crypto.randomUUID();
   const email = renderAdminBookingEmail(booking);
+
+  const { data: tokenRow } = await supabaseAdmin
+    .from("email_unsubscribe_tokens")
+    .upsert(
+      { email: ADMIN_EMAIL, token: unsubscribeToken },
+      { onConflict: "email", ignoreDuplicates: true },
+    )
+    .select("token")
+    .single();
 
   await supabaseAdmin.from("email_send_log").insert({
     message_id: messageId,
@@ -88,6 +98,7 @@ async function enqueueAdminNotification(booking: BookingEmailData) {
       purpose: "transactional",
       label: "booking_admin_notification",
       idempotency_key: `booking-admin-${booking.id}`,
+      unsubscribe_token: tokenRow?.token || unsubscribeToken,
       queued_at: new Date().toISOString(),
     },
   });
