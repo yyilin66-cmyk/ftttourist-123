@@ -462,15 +462,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Booking form fake submit
+  // Booking form -> POST to backend
   const bf = document.getElementById('booking-form');
   if (bf) {
-    bf.addEventListener('submit', (e) => {
+    bf.addEventListener('submit', async (e) => {
       e.preventDefault();
-      bf.style.display = 'none';
-      const cf = document.getElementById('confirm-box');
-      if (cf) cf.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const activeCard = bf.querySelector('.option-card.active');
+      const pkg = activeCard ? (activeCard.querySelector('h4')?.innerText || 'Unknown') : 'Unknown';
+      const inputs = bf.querySelectorAll('input, textarea');
+      // Order matches HTML: arrival, departure, adults, children, name, email, contact, hotel, notes
+      const [arrival, departure, adults, children, name, email, contact, hotel] = inputs;
+      const notes = bf.querySelector('textarea');
+
+      const submitBtn = bf.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.innerText : '';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = '提交中...'; }
+
+      try {
+        const res = await fetch('/api/public/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            package: pkg,
+            arrival_date: arrival?.value || null,
+            departure_date: departure?.value || null,
+            adults: Number(adults?.value || 1),
+            children: Number(children?.value || 0),
+            name: name?.value || '',
+            email: email?.value || '',
+            contact: contact?.value || null,
+            hotel: hotel?.value || null,
+            notes: notes?.value || null,
+            language: document.documentElement.lang === 'en' ? 'en' : 'zh',
+          }),
+        });
+        if (!res.ok) throw new Error('submit failed');
+
+        bf.style.display = 'none';
+        const cf = document.getElementById('confirm-box');
+        if (cf) cf.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert(document.documentElement.lang === 'en'
+          ? 'Submission failed. Please try again or contact us via WhatsApp.'
+          : '提交失败,请重试或通过 WhatsApp 联系我们。');
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = originalText; }
+      }
     });
   }
   const contactForm = document.getElementById('contact-form');
