@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>在线预订 — Four Tourist Travel</title>
+<meta name="description" content="3 步完成伊瓜苏行程预订 — 选服务、定日期、留联系方式。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="home.html" class="brand"><span class="mark"></span><span>Four Tourist Travel<small class="brand-sub" data-i18n="brand.sub">伊瓜苏瀑布 · 旅游服务</small></span></a>
+    <nav class="nav-links">
+      <a href="home.html" data-i18n="nav.home">首页</a>
+      <a href="transfers.html" data-i18n="nav.transfers">接送服务</a>
+      <span class="dropdown"><a href="cataratas-argentinas.html" data-i18n="nav.tours">瀑布游览</a>
+        <div class="dropdown-menu">
+          <a href="cataratas-argentinas.html" data-i18n="nav.tours.ar">阿根廷瀑布</a>
+          <a href="cataratas-brasileras.html" data-i18n="nav.tours.br">巴西瀑布</a>
+          <a href="san-ignacio-wanda.html" data-i18n="nav.tours.sw">圣伊格纳西奥 + 万达</a>
+        </div>
+      </span>
+      <a href="combos.html" data-i18n="nav.combos">套餐</a>
+      <a href="about.html" data-i18n="nav.about">关于我们</a>
+      <a href="contact.html" data-i18n="nav.contact">联系</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch"><button data-lang="zh" class="active">中文</button><button data-lang="en">EN</button></div>
+      <a href="booking.html" class="btn btn--accent active" data-i18n="nav.book">立即预订</a>
+      <button class="menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav">
+    <a href="home.html" data-i18n="nav.home">首页</a><a href="transfers.html" data-i18n="nav.transfers">接送服务</a>
+    <a href="cataratas-argentinas.html" data-i18n="nav.tours.ar">阿根廷瀑布</a><a href="cataratas-brasileras.html" data-i18n="nav.tours.br">巴西瀑布</a>
+    <a href="san-ignacio-wanda.html" data-i18n="nav.tours.sw">圣伊格纳西奥 + 万达</a><a href="combos.html" data-i18n="nav.combos">套餐</a>
+    <a href="about.html" data-i18n="nav.about">关于我们</a><a href="contact.html" data-i18n="nav.contact">联系</a><a href="booking.html" data-i18n="nav.book">立即预订</a>
+  </div>
+</header>
+
+<section class="page-hero" style="padding-bottom: 48px">
+  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=2000&q=80')"></div>
+  <div class="container">
+    <div class="breadcrumb"><a href="home.html" data-i18n="nav.home">首页</a> / <span data-i18n="nav.book">立即预订</span></div>
+    <h1 data-i18n="bk.h1">在线预订</h1>
+    <p class="lede" data-i18n="bk.lede">三步完成预订:选服务 → 选日期人数 → 留下联系方式。我们会在 24 小时内确认。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width: 920px">
+
+    <div class="step-row" style="margin-bottom: 48px">
+      <div class="step"><div class="num">1</div><h4 data-i18n="bk.s1">选择服务</h4><p>从 4 个套餐或单项服务中选择</p></div>
+      <div class="step"><div class="num">2</div><h4 data-i18n="bk.s2">日期与人数</h4><p>到达日期、行程天数、人数</p></div>
+      <div class="step"><div class="num">3</div><h4 data-i18n="bk.s3">联系方式</h4><p>WhatsApp / 邮箱 / 微信</p></div>
+      <div class="step"><div class="num">4</div><h4 data-i18n="bk.s4">确认</h4><p>24 小时内人工确认</p></div>
+    </div>
+
+    <form id="booking-form" class="booking-form">
+      <h3 data-i18n="bk.s1" style="margin-bottom: 16px">选择服务</h3>
+      <div class="option-grid">
+        <div class="option-card active">
+          <h4 data-i18n="combo.c1.title">接送 + 阿根廷瀑布</h4>
+          <div class="price" data-i18n="combo.c1.price">$58,000 ARS</div>
+          <div class="desc">C1 经典套餐(2 晚)</div>
+        </div>
+        <div class="option-card">
+          <h4 data-i18n="combo.c2.title">瀑布 + 耶稣会遗址</h4>
+          <div class="price" data-i18n="combo.c2.price">$95,000 ARS</div>
+          <div class="desc">C2 文化套餐(3 晚)</div>
+        </div>
+        <div class="option-card">
+          <h4 data-i18n="combo.c3.title">阿根廷 + 巴西瀑布</h4>
+          <div class="price" data-i18n="combo.c3.price">$110,000 ARS</div>
+          <div class="desc">C3 双国套餐(3 晚)</div>
+        </div>
+        <div class="option-card">
+          <h4 data-i18n="combo.c4.title">伊瓜苏 全包套餐</h4>
+          <div class="price" data-i18n="combo.c4.price">$165,000 ARS</div>
+          <div class="desc">C4 全包套餐(4–5 晚)</div>
+        </div>
+        <div class="option-card">
+          <h4 data-i18n="svc.transfer.title">仅机场接送</h4>
+          <div class="price">$11,000–$19,000 ARS</div>
+          <div class="desc">单程 / 往返</div>
+        </div>
+        <div class="option-card">
+          <h4>定制行程</h4>
+          <div class="price">询价</div>
+          <div class="desc">告诉我们你的天数与偏好</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 40px; margin-bottom: 16px" data-i18n="bk.s2">日期与人数</h3>
+      <div class="form-grid">
+        <div class="form-field"><label data-i18n="ct.form.date">到达日期</label><input type="date" required /></div>
+        <div class="form-field"><label>离开日期</label><input type="date" /></div>
+        <div class="form-field"><label>成人数</label><input type="number" min="1" value="2" /></div>
+        <div class="form-field"><label>儿童数(2–11 岁)</label><input type="number" min="0" value="0" /></div>
+      </div>
+
+      <h3 style="margin-top: 40px; margin-bottom: 16px" data-i18n="bk.s3">联系方式</h3>
+      <div class="form-grid">
+        <div class="form-field"><label data-i18n="ct.form.name">姓名</label><input type="text" required /></div>
+        <div class="form-field"><label data-i18n="ct.form.email">邮箱</label><input type="email" required /></div>
+        <div class="form-field"><label>WhatsApp / 微信</label><input type="text" placeholder="+86 ... 或 WeChat ID" /></div>
+        <div class="form-field"><label>酒店名称(若已订)</label><input type="text" /></div>
+        <div class="form-field full"><label data-i18n="ct.form.msg">备注</label><textarea placeholder="航班号、特殊需求、儿童座椅等..."></textarea></div>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
+        <button type="submit" class="btn btn--accent btn--lg">提交预订请求</button>
+        <span style="font-size:.85rem; color: var(--c-muted)">提交后我们将在 24 小时内联系确认 · 不接受当前在线支付</span>
+      </div>
+    </form>
+
+    <div class="confirm-box" id="confirm-box" style="display:none; margin-top: 48px">
+      <div class="check">✓</div>
+      <h2 data-i18n="bk.confirm.title">已收到你的预订请求</h2>
+      <p data-i18n="bk.confirm.desc">我们的预订专员将在 24 小时内通过邮件或 WhatsApp 联系你,确认行程细节与付款方式。</p>
+      <p style="margin-top: 24px" data-i18n="bk.scan">扫码加微信 / WhatsApp</p>
+      <div class="qr-row">
+        <div class="qr-card">
+          <div class="qr-placeholder"></div>
+          <p>WeChat · FTT-Iguazu</p>
+        </div>
+        <div class="qr-card">
+          <div class="qr-placeholder"></div>
+          <p>WhatsApp · +54 9 3757</p>
+        </div>
+      </div>
+      <p style="margin-top:32px"><a href="home.html" class="btn btn--ghost">返回首页</a></p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand" style="color:#fff; margin-bottom: 16px"><span class="mark"></span><span style="color:#fff">Four Tourist Travel<small class="brand-sub" data-i18n="foot.tag">Puerto Iguazú · Misiones · Argentina</small></span></div>
+        <p data-i18n="foot.about">Four Tourist Travel(FTT)由本地家族自 2011 年起经营,专注于伊瓜苏瀑布的接送、游览与套餐服务。</p>
+        <div class="pay-row"><span class="pay-chip">VISA</span><span class="pay-chip">Mastercard</span><span class="pay-chip">Amex</span><span class="pay-chip">Mercado Pago</span></div>
+      </div>
+      <div><h4 data-i18n="foot.services">服务</h4><a href="transfers.html" data-i18n="nav.transfers">接送服务</a><a href="cataratas-argentinas.html" data-i18n="nav.tours.ar">阿根廷瀑布</a><a href="cataratas-brasileras.html" data-i18n="nav.tours.br">巴西瀑布</a><a href="san-ignacio-wanda.html" data-i18n="nav.tours.sw">圣伊格纳西奥 + 万达</a><a href="combos.html" data-i18n="nav.combos">套餐</a></div>
+      <div><h4 data-i18n="foot.company">公司</h4><a href="about.html" data-i18n="nav.about">关于我们</a><a href="contact.html" data-i18n="nav.contact">联系</a><a href="booking.html" data-i18n="nav.book">立即预订</a></div>
+      <div><h4 data-i18n="foot.contact">联系</h4><a href="https://wa.me/5493757000000">WhatsApp: +54 9 3757 ······</a><a href="mailto:hello@ftt.tur.ar">hello@ftt.tur.ar</a><a>WeChat: FTT-Iguazu</a></div>
+    </div>
+    <div class="footer-bottom"><span data-i18n="foot.rights">© 2026 Four Tourist Travel.</span><span data-i18n="foot.legal">隐私政策 · 服务条款</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5493757000000" class="whatsapp-fab"><span>●</span><span data-i18n="wa.label">WhatsApp 咨询</span></a>
+<script src="assets/js/app.js"></script>
+</body></html>
