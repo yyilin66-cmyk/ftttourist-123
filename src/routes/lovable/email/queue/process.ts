@@ -1,12 +1,16 @@
 import { sendLovableEmail } from '@lovable.dev/email-js'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { createFileRoute } from '@tanstack/react-router'
+import type { Database } from '@/integrations/supabase/types'
 
 const MAX_RETRIES = 5
 const DEFAULT_BATCH_SIZE = 10
 const DEFAULT_SEND_DELAY_MS = 200
 const DEFAULT_AUTH_TTL_MINUTES = 15
 const DEFAULT_TRANSACTIONAL_TTL_MINUTES = 60
+
+type EmailPayload = Record<string, any>
+type QueueMessage = { msg_id: number; read_ct?: number; enqueued_at?: string; message: EmailPayload }
 
 // Check if an error is a rate-limit (429) response.
 // Uses EmailAPIError.status when available (email-js >=0.x with structured errors),
@@ -37,9 +41,9 @@ function getRetryAfterSeconds(error: unknown): number {
 
 // Move a message to the dead letter queue and log the reason.
 async function moveToDlq(
-  supabase: any,
+  supabase: SupabaseClient<Database>,
   queue: string,
-  msg: { msg_id: number; message: Record<string, any> },
+  msg: QueueMessage,
   reason: string
 ): Promise<void> {
   const payload = msg.message
@@ -49,13 +53,13 @@ async function moveToDlq(
     recipient_email: payload.to,
     status: 'dlq',
     error_message: reason,
-  } as any)
+  })
   const { error } = await supabase.rpc('move_to_dlq', {
     source_queue: queue,
     dlq_name: `${queue}_dlq`,
     message_id: msg.msg_id,
     payload,
-  } as any)
+  })
   if (error) {
     console.error('Failed to move message to DLQ', { queue, msg_id: msg.msg_id, reason, error })
   }
@@ -89,7 +93,7 @@ export const Route = createFileRoute("/lovable/email/queue/process")({
           return Response.json({ error: 'Forbidden' }, { status: 403 })
         }
 
-        const supabase = createClient<any, any, any>(supabaseUrl, supabaseServiceKey)
+        const supabase = createClient<Database>(supabaseUrl, supabaseServiceKey)
 
         // 1. Check rate-limit cooldown and read queue config
         const { data: state } = await supabase
@@ -163,7 +167,7 @@ export const Route = createFileRoute("/lovable/email/queue/process")({
           }
 
           for (let i = 0; i < messages.length; i++) {
-            const msg = messages[i]
+            const msg = messages[i] as QueueMessage
             const payload = msg.message
             const failedAttempts =
               payload?.message_id && typeof payload.message_id === 'string'
@@ -222,21 +226,23 @@ export const Route = createFileRoute("/lovable/email/queue/process")({
             }
 
             try {
+              const emailInput = {
+                ...(payload.run_id ? { run_id: payload.run_id } : {}),
+                to: payload.to,
+                from: payload.from,
+                sender_domain: payload.sender_domain,
+                subject: payload.subject,
+                html: payload.html,
+                text: payload.text,
+                purpose: payload.purpose,
+                label: payload.label,
+                idempotency_key: payload.idempotency_key,
+                unsubscribe_token: payload.unsubscribe_token,
+                message_id: payload.message_id,
+              }
+
               await sendLovableEmail(
-                {
-                  run_id: payload.run_id,
-                  to: payload.to,
-                  from: payload.from,
-                  sender_domain: payload.sender_domain,
-                  subject: payload.subject,
-                  html: payload.html,
-                  text: payload.text,
-                  purpose: payload.purpose,
-                  label: payload.label,
-                  idempotency_key: payload.idempotency_key,
-                  unsubscribe_token: payload.unsubscribe_token,
-                  message_id: payload.message_id,
-                },
+                emailInput,
                 { apiKey, sendUrl: process.env.LOVABLE_SEND_URL }
               )
 
