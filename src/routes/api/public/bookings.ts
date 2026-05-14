@@ -78,7 +78,6 @@ async function enqueueAdminNotification(booking: BookingEmailData) {
   const { error } = await supabaseAdmin.rpc("enqueue_email", {
     queue_name: "transactional_emails",
     payload: {
-      run_id: messageId,
       message_id: messageId,
       to: ADMIN_EMAIL,
       from: `Four Tourist Travel <noreply@${FROM_DOMAIN}>`,
@@ -88,6 +87,7 @@ async function enqueueAdminNotification(booking: BookingEmailData) {
       text: email.text,
       purpose: "transactional",
       label: "booking_admin_notification",
+      idempotency_key: `booking-admin-${booking.id}`,
       queued_at: new Date().toISOString(),
     },
   });
