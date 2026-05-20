@@ -522,3 +522,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ===== 客服浮动入口 =====
+(function injectChatButton() {
+  if (typeof document === 'undefined') return;
+  if (document.getElementById('ftt-chat-fab')) return;
+  const isEn = document.documentElement.lang === 'en';
+  const a = document.createElement('a');
+  a.id = 'ftt-chat-fab';
+  a.href = '/chat';
+  a.title = isEn ? 'Chat with us' : '在线客服';
+  a.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  Object.assign(a.style, {
+    position: 'fixed', right: '20px', bottom: '20px', width: '56px', height: '56px',
+    borderRadius: '50%', background: '#c4654a', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', boxShadow: '0 4px 16px rgba(196,101,74,0.4)',
+    cursor: 'pointer', zIndex: '9999', textDecoration: 'none',
+    transition: 'transform 0.2s'
+  });
+  a.onmouseenter = () => a.style.transform = 'scale(1.1)';
+  a.onmouseleave = () => a.style.transform = 'scale(1)';
+  document.body.appendChild(a);
+})();
