@@ -133,6 +133,7 @@ function AdminDashboard() {
             </p>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
+            <Link to="/admin/chats" style={ghostBtnLink}>客服对话</Link>
             <Link to="/" style={ghostBtnLink}>查看网站</Link>
             <button onClick={load} style={ghostBtn}>刷新</button>
             <button onClick={logout} style={ghostBtn}>退出</button>
