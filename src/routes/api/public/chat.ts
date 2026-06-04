@@ -93,7 +93,7 @@ export const Route = createFileRoute("/api/public/chat")({
 
         const systemPrompt = parsed.language === "en" ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT_ZH;
         const gateway = createLovableAiGatewayProvider(apiKey);
-        const model = gateway("google/gemini-2.5-flash");
+        const model = gateway("openai/gpt-5-mini");
 
         let reply: string;
         try {
