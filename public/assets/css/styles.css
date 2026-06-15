@@ -3,25 +3,25 @@
    ========================================================= */
 
 :root {
-  /* Palette — waterfall mist + jungle */
-  --c-mist-50:  #f3f8f7;
-  --c-mist-100: #e2efed;
-  --c-mist-200: #c2dedb;
-  --c-mist-300: #95c4bf;
-  --c-mist-400: #5fa39d;
-  --c-mist-500: #2f7f7a;
-  --c-mist-600: #226461;
-  --c-mist-700: #1b4e4c;
-  --c-jungle-700: #1f3a2c;
-  --c-jungle-900: #122218;
-  --c-sand:    #faf7f1;
-  --c-sand-2:  #f1ece1;
-  --c-ink:     #19221f;
-  --c-ink-2:   #3a4944;
-  --c-muted:   #6b7975;
-  --c-line:    #d9d3c3;
-  --c-accent:  #c9601a;
-  --c-accent-2:#e8a76a;
+  /* Palette — warm luxury: espresso, ivory, champagne gold */
+  --c-mist-50:  #faf6ef;   /* soft ivory surface */
+  --c-mist-100: #f1e8d6;   /* champagne tint */
+  --c-mist-200: #e6d3aa;   /* pale gold */
+  --c-mist-300: #d4b87a;   /* light champagne */
+  --c-mist-400: #c69b4a;   /* warm gold */
+  --c-mist-500: #b8893d;   /* signature gold */
+  --c-mist-600: #8c6624;   /* deep gold */
+  --c-mist-700: #5c4317;   /* bronze */
+  --c-jungle-700: #2b1f17; /* espresso */
+  --c-jungle-900: #160e08; /* near-black coffee */
+  --c-sand:    #fbf7f0;    /* ivory page */
+  --c-sand-2:  #f3ead6;    /* cream surface */
+  --c-ink:     #1a120b;    /* espresso text */
+  --c-ink-2:   #4a382a;    /* warm brown text */
+  --c-muted:   #8a755e;    /* taupe */
+  --c-line:    #e6d9bf;    /* champagne hairline */
+  --c-accent:  #b8893d;    /* gold accent */
+  --c-accent-2:#e0c285;    /* light gold highlight */
   --c-white:   #ffffff;
 
   --font-display: "Cormorant Garamond", "Source Han Serif SC", "Noto Serif SC", "Songti SC", Georgia, serif;
@@ -31,13 +31,15 @@
   --s-5: 24px;  --s-6: 32px;  --s-7: 48px;  --s-8: 64px;
   --s-9: 96px;  --s-10: 128px;
 
-  --r-sm: 4px; --r-md: 8px; --r-lg: 14px; --r-xl: 24px;
+  --r-sm: 2px; --r-md: 4px; --r-lg: 6px; --r-xl: 10px;
 
-  --shadow-sm: 0 1px 2px rgba(18,34,24,.06), 0 1px 1px rgba(18,34,24,.04);
-  --shadow-md: 0 8px 24px rgba(18,34,24,.08), 0 2px 6px rgba(18,34,24,.04);
-  --shadow-lg: 0 30px 60px -20px rgba(18,34,24,.25);
+  --shadow-sm: 0 1px 2px rgba(22,14,8,.06), 0 1px 1px rgba(22,14,8,.04);
+  --shadow-md: 0 12px 32px rgba(22,14,8,.10), 0 2px 6px rgba(22,14,8,.05);
+  --shadow-lg: 0 40px 80px -24px rgba(22,14,8,.35);
 
-  --maxw: 1240px;
+  --gradient-gold: linear-gradient(135deg, #d4b87a 0%, #b8893d 50%, #8c6624 100%);
+
+  --maxw: 1280px;
 }
 
 * { box-sizing: border-box; }
